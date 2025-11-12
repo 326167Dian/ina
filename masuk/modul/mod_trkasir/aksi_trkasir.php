@@ -29,7 +29,8 @@ if (empty($_SESSION['username']) and empty($_SESSION['passuser'])) {
 			echo json_encode($data);
         } else {
     		$insert = mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO trkasir(
-    										kd_trkasir,	
+    										kd_trkasir,
+											id_user,	
     										petugas,
     										shift,																		
     										tgl_trkasir,																			
@@ -45,7 +46,8 @@ if (empty($_SESSION['username']) and empty($_SESSION['passuser'])) {
     										id_carabayar
     										)
     								 VALUES('$_POST[kd_trkasir]',
-    								 		'$_POST[petugas]',
+    								 		'$_POST[id_user]',
+											'$_POST[petugas]',
     								 		'$_POST[shift]',
     										'$_POST[tgl_trkasir]',										
     										'$_POST[nm_pelanggan]',
@@ -61,6 +63,8 @@ if (empty($_SESSION['username']) and empty($_SESSION['passuser'])) {
     										
     										)");
     
+	mysqli_query($GLOBALS["___mysqli_ston"], "update trkasir_detail set idadmin = '$_POST[id_user]' where kd_trkasir = '$_POST[kd_trkasir]'");
+
     		if ($insert) {
     			# code...
     			mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE kdtk SET stt_kdtk = 'OFF' WHERE id_admin = '$_SESSION[idadmin]'AND kd_trkasir = '$_POST[kd_trkasir]'");
@@ -98,6 +102,7 @@ if (empty($_SESSION['username']) and empty($_SESSION['passuser'])) {
 
 		$ubah = mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE trkasir SET tgl_trkasir = '$_POST[tgl_trkasir]',
 									petugas = '$_POST[petugas]',
+									id_user = '$_POST[id_user]',
 									nm_pelanggan = '$_POST[nm_pelanggan]',									
 									tlp_pelanggan = '$_POST[tlp_pelanggan]',
 									alamat_pelanggan = '$_POST[alamat_pelanggan]',
@@ -110,6 +115,7 @@ if (empty($_SESSION['username']) and empty($_SESSION['passuser'])) {
 									id_carabayar = '$_POST[id_carabayar]'
 									WHERE id_trkasir = '$_POST[id_trkasir]'");
 
+mysqli_query($GLOBALS["___mysqli_ston"], "update trkasir_detail set idadmin = '$_POST[id_user]' where kd_trkasir = '$_POST[kd_trkasir]'");
 
         if($ubah){
             $data['message'] = 'success';

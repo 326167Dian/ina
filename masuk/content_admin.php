@@ -200,6 +200,10 @@ elseif ($_GET['module'] == 'komisi') {
 elseif ($_GET['module'] == 'lapkomisi') {
     include "modul/mod_komisi/lapkomisi.php";
 }
+// evaluasi pegawai
+elseif ($_GET['module'] == 'evaluasi') {
+    include "modul/mod_evaluasi/lapevaluasi.php";
+}
 
 // $getkdon = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT kd_trkasir FROM kdtk WHERE id_admin = '$_SESSION[idadmin]' AND stt_kdtk ='ON' ORDER BY id_kdtk DESC");
 // $kdon = mysqli_fetch_array($getkdon);

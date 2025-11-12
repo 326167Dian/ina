@@ -80,15 +80,19 @@ mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE trkasir_detail SET qty_dtrkasir
         }
     }					
 }else{
-
 $ttlharga = $qty_dtrkasir * $hrgjual_dtrkasir;
-
+$mod=mysqli_query($GLOBALS["___mysqli_ston"], "SELECT hrgsat_barang FROM barang WHERE id_barang='$id_barang'");
+$mod1=mysqli_fetch_array($mod);
+$modal = $mod1['hrgsat_barang'];
+$profit = $hrgjual_dtrkasir - $modal;
 
 mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO trkasir_detail(kd_trkasir,
 										id_barang,
 										kd_barang,
 										nmbrg_dtrkasir,
 										qty_dtrkasir,
+                                        modal,
+                                        profit,
 										sat_dtrkasir,
 										hrgjual_dtrkasir,
 										hrgttl_dtrkasir)
@@ -97,6 +101,8 @@ mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO trkasir_detail(kd_trkasir,
 										'$kd_barang',
 										'$nmbrg_dtrkasir',
 										'$qty_dtrkasir',
+                                        '$modal',
+                                        '$profit',
 										'$sat_dtrkasir',
 										'$hrgjual_dtrkasir',
 										'$ttlharga')");
